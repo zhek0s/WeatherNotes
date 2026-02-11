@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotesListView: View {
 
-    @ObservedObject private var viewModel = NoteListViewModel()
+    @ObservedObject private var viewModel = NoteListViewModel(storage: StorageService())
 
     var body: some View {
         NavigationView {
