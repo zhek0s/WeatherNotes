@@ -23,10 +23,19 @@ struct AddNoteView: View {
                         let note = try viewModel.createNote()
                         onSave(note)
                     } catch {
-                        print(error.localizedDescription)
+                        viewModel.errorMessage = error.localizedDescription
                     }
                 }
             }
+            .alert("Error",
+                    isPresented: Binding(
+                     get: { viewModel.errorMessage != nil },
+                     set: { _ in viewModel.errorMessage = nil })
+             ) {
+                 Button("OK", role: .cancel) {}
+             } message: {
+                 Text(viewModel.errorMessage ?? "")
+             }
         }
     }
 }

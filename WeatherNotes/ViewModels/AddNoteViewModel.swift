@@ -9,6 +9,7 @@ import Foundation
 
 class AddNoteViewModel: ObservableObject {
     @Published var text: String = ""
+    @Published var errorMessage: String?
     
     func createNote() throws -> Note {
         guard !text.trimmingCharacters(in: .whitespaces).isEmpty else {
