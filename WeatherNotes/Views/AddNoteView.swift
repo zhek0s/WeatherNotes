@@ -12,6 +12,8 @@ struct AddNoteView: View {
     @ObservedObject var viewModel: AddNoteViewModel
     let onSave: (Note) -> Void
     
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         VStack {
             TextEditor(text: $viewModel.text)
@@ -22,6 +24,7 @@ struct AddNoteView: View {
                     do{
                         let note = try viewModel.createNote()
                         onSave(note)
+                        dismiss()
                     } catch {
                         viewModel.errorMessage = error.localizedDescription
                     }
