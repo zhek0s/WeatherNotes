@@ -15,17 +15,9 @@ struct NoteDetailsView: View {
         VStack(spacing: 16) {
             Text(note.text)
                 .font(.title)
-
             Text(note.date.formatted())
-
             Text("\(note.temperature)°")
-
-            AsyncImage(
-                url: URL(string:
-                  "https://openweathermap.org/img/wn/\(note.iconCode)@2x.png"
-                )
-            )
-
+            Image(systemName: note.iconCode)
             Spacer()
         }
         .padding()
@@ -33,5 +25,5 @@ struct NoteDetailsView: View {
 }
 
 #Preview {
-    NoteDetailsView(note: Note(id: UUID(), text: "Test text", date: Date(), temperature: 12, iconCode: "rain"))
+    NoteDetailsView(note: Note(id: UUID(), text: "Test text", date: Date(), temperature: 12, iconCode: "sun.max.fill"))
 }
