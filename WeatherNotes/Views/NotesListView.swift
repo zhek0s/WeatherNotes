@@ -15,7 +15,11 @@ struct NotesListView: View {
             }
             .navigationTitle("Weather Notes")
             .toolbar {
-                NavigationLink(destination: AddNoteView()
+                NavigationLink(
+                    destination: AddNoteView(
+                        viewModel: AddNoteViewModel(),
+                        onSave: {_ in }
+                    )
                 ) {
                     Image(systemName: "plus")
                 }
