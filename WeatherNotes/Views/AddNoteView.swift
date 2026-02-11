@@ -8,14 +8,29 @@
 import SwiftUI
 
 struct AddNoteView: View {
+    
+    @ObservedObject var viewModel: AddNoteViewModel
+    let onSave: (Note) -> Void
+    
     var body: some View {
         VStack {
-            Text("AddNoteView")
+            TextEditor(text: $viewModel.text)
+                .padding()
+            
+            Button("Save") {
+                Task {
+                    do{
+                        let note = try viewModel.createNote()
+                        onSave(note)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    AddNoteView()
+    AddNoteView(viewModel: AddNoteViewModel(), onSave: {note in print(note)})
 }
