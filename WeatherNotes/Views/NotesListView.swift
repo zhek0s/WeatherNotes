@@ -8,17 +8,32 @@
 import SwiftUI
 
 struct NotesListView: View {
+
+    @ObservedObject private var viewModel = NoteListViewModel()
+
     var body: some View {
         NavigationView {
-            VStack {
-                Text("NotesListView")
+            List(viewModel.notes) { note in
+                NavigationLink(destination: NoteDetailsView(note: note)) {
+                    VStack(alignment: .leading) {
+                        Text(note.text)
+                        Text(note.date.formatted())
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                    VStack {
+                        Text("\(Int(note.temperature))°")
+                        Image(systemName: note.iconCode)
+                    }
+                }
             }
             .navigationTitle("Weather Notes")
             .toolbar {
                 NavigationLink(
                     destination: AddNoteView(
                         viewModel: AddNoteViewModel(),
-                        onSave: {_ in }
+                        onSave: { note in viewModel.add(note: note) }
                     )
                 ) {
                     Image(systemName: "plus")
