@@ -22,14 +22,22 @@ class AddNoteViewModel: ObservableObject {
             throw ValidationError.emptyText
         }
         
-        let weather = try await weatherService.fetchWeather(latitude: "47.9057", longitude: "33.394") // TODO: get real values
+        // TODO: get real values
+        let lat = "47.9057"
+        let lon = "33.394"
+        
+        let weather = try await weatherService.fetchWeather(latitude: lat, longitude: lon)
         
         return Note(
             id: UUID(),
             text: text,
             date: Date(),
-            temperature: Double(weather.current.temperature_2m),
-            iconCode: ""
+            latitude: lat,
+            longitude: lon,
+            temperature: weather.current.temperature_2m,
+            weatherCode: String(weather.current.weather_code), // TODO: get native ios icon from wmo code
+            hourlyTemperature: weather.hourly.temperature_2m,
+            hourlyWeatherCode: weather.hourly.weather_code.map { String($0) } // TODO: get native ios icon from wmo code
         )
     }
 }
