@@ -35,9 +35,9 @@ class AddNoteViewModel: ObservableObject {
             latitude: lat,
             longitude: lon,
             temperature: weather.current.temperature_2m,
-            weatherCode: String(weather.current.weather_code), // TODO: get native ios icon from wmo code
+            weatherCode: iconForWMO(code: weather.current.weather_code),
             hourlyTemperature: weather.hourly.temperature_2m,
-            hourlyWeatherCode: weather.hourly.weather_code.map { String($0) } // TODO: get native ios icon from wmo code
+            hourlyWeatherCode: weather.hourly.weather_code.map { iconForWMO(code: $0) }
         )
     }
 }
