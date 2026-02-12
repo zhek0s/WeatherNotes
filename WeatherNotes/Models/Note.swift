@@ -11,6 +11,10 @@ struct Note: Identifiable, Codable {
     let id: UUID
     let text: String
     let date: Date
-    let temperature: Double
-    let iconCode: String
+    let latitude: String
+    let longitude: String
+    let temperature: Float
+    let weatherCode: String
+    let hourlyTemperature: [Float]
+    let hourlyWeatherCode: [String]
 }

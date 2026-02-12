@@ -11,17 +11,33 @@ class AddNoteViewModel: ObservableObject {
     @Published var text: String = ""
     @Published var errorMessage: String?
     
-    func createNote() throws -> Note {
+    private let weatherService: WeatherServiceProtocol
+    
+    init(weatherService: WeatherServiceProtocol) {
+        self.weatherService = weatherService
+    }
+    
+    func createNote() async throws -> Note {
         guard !text.trimmingCharacters(in: .whitespaces).isEmpty else {
             throw ValidationError.emptyText
         }
+        
+        // TODO: get real values
+        let lat = "47.9057"
+        let lon = "33.394"
+        
+        let weather = try await weatherService.fetchWeather(latitude: lat, longitude: lon)
         
         return Note(
             id: UUID(),
             text: text,
             date: Date(),
-            temperature: 0,
-            iconCode: ""
+            latitude: lat,
+            longitude: lon,
+            temperature: weather.current.temperature_2m,
+            weatherCode: iconForWMO(code: weather.current.weather_code),
+            hourlyTemperature: weather.hourly.temperature_2m,
+            hourlyWeatherCode: weather.hourly.weather_code.map { iconForWMO(code: $0) }
         )
     }
 }

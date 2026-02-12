@@ -24,7 +24,7 @@ struct NotesListView: View {
                     Spacer()
                     VStack {
                         Text("\(Int(note.temperature))°")
-                        Image(systemName: note.iconCode)
+                        Image(systemName: note.weatherCode)
                     }
                 }
             }
@@ -32,7 +32,7 @@ struct NotesListView: View {
             .toolbar {
                 NavigationLink(
                     destination: AddNoteView(
-                        viewModel: AddNoteViewModel(),
+                        viewModel: AddNoteViewModel(weatherService: WeatherService()),
                         onSave: { note in viewModel.add(note: note) }
                     )
                 ) {
