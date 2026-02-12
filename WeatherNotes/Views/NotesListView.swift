@@ -32,7 +32,7 @@ struct NotesListView: View {
             .toolbar {
                 NavigationLink(
                     destination: AddNoteView(
-                        viewModel: AddNoteViewModel(),
+                        viewModel: AddNoteViewModel(weatherService: WeatherService()),
                         onSave: { note in viewModel.add(note: note) }
                     )
                 ) {

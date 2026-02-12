@@ -22,7 +22,7 @@ struct AddNoteView: View {
             Button("Save") {
                 Task {
                     do{
-                        let note = try viewModel.createNote()
+                        let note = try await viewModel.createNote()
                         onSave(note)
                         dismiss()
                     } catch {
@@ -44,5 +44,5 @@ struct AddNoteView: View {
 }
 
 #Preview {
-    AddNoteView(viewModel: AddNoteViewModel(), onSave: {note in print(note)})
+    AddNoteView(viewModel: AddNoteViewModel(weatherService: WeatherService()), onSave: {note in print(note)})
 }
