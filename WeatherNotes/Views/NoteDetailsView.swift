@@ -17,7 +17,7 @@ struct NoteDetailsView: View {
                 .font(.title)
             Text(note.date.formatted())
             Text("\(note.temperature)°")
-            Image(systemName: note.iconCode)
+            Image(systemName: note.weatherCode)
             Spacer()
         }
         .padding()
@@ -25,5 +25,16 @@ struct NoteDetailsView: View {
 }
 
 #Preview {
-    NoteDetailsView(note: Note(id: UUID(), text: "Test text", date: Date(), temperature: 12, iconCode: "sun.max.fill"))
+    NoteDetailsView(
+        note: Note(
+            id: UUID(),
+            text: "Test text",
+            date: Date(),
+            latitude: "0",
+            longitude: "1",
+            temperature: 12,
+            weatherCode: "sun.max.fill",
+            hourlyTemperature: [],
+            hourlyWeatherCode: []
+        ))
 }

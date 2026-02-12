@@ -24,7 +24,7 @@ struct NotesListView: View {
                     Spacer()
                     VStack {
                         Text("\(Int(note.temperature))°")
-                        Image(systemName: note.iconCode)
+                        Image(systemName: note.weatherCode)
                     }
                 }
             }
