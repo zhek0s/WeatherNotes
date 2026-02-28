@@ -30,15 +30,29 @@ struct NotesListView: View {
             }
             .navigationTitle("Weather Notes")
             .toolbar {
-                NavigationLink(
-                    destination: AddNoteView(
-                        viewModel: AddNoteViewModel(weatherService: WeatherService()),
-                        onSave: { note in viewModel.add(note: note) }
-                    )
-                ) {
-                    Image(systemName: "plus")
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination:
+                        AddNoteView(
+                            viewModel: AddNoteViewModel(
+                                weatherService: WeatherService()
+                            ),
+                            onSave: { note in
+                                viewModel.add(note: note)
+                            }
+                        )
+                    ) {
+                        Image(systemName: "plus")
+                    }
+                }
+
+                // ⚙️ Настройки
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gearshape")
+                    }
                 }
             }
+            .background(AppColors.background)
         }
     }
 }
